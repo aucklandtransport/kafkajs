@@ -253,17 +253,17 @@ module.exports = ({
         error: e,
         groupId,
       })
+//       Waiting for fix in kafkajs libdary
+//       if (e.name === 'KafkaJSNumberOfRetriesExceeded' || e.retriable === true) {
+//         const retryTime = e.retryTime || retry.initialRetryTime || initialRetryTime
+//         logger.error(`Restarting the consumer in ${retryTime}ms`, {
+//           retryCount: e.retryCount,
+//           retryTime,
+//           groupId,
+//         })
 
-      if (e.name === 'KafkaJSNumberOfRetriesExceeded' || e.retriable === true) {
-        const retryTime = e.retryTime || retry.initialRetryTime || initialRetryTime
-        logger.error(`Restarting the consumer in ${retryTime}ms`, {
-          retryCount: e.retryCount,
-          retryTime,
-          groupId,
-        })
-
-        setTimeout(() => restart(onCrash), retryTime)
-      }
+//         setTimeout(() => restart(onCrash), retryTime)
+//       }
     }
 
     await start(onCrash)
